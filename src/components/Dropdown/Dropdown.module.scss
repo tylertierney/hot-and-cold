@@ -1,0 +1,10 @@
+.triggerBtn {
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid color-mix(in hsl, var(--bg-color) 70%, var(--text-color));
+}

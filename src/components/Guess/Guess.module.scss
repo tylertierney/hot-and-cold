@@ -1,0 +1,25 @@
+.guess {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  position: relative;
+  min-height: 1.8rem;
+
+  &.mostRecent {
+    border: 1px solid var(--bg-color-50);
+    background-color: var(--bg-color-95);
+  }
+
+  &.hint::before {
+    content: '💡';
+    position: absolute;
+    font-size: 0.8rem;
+    left: -1rem;
+    top: 52%;
+    translate: 0 -50%;
+  }
+}

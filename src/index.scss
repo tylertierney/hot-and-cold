@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  --text-color: rgb(241, 241, 241);
+  --bg-color: rgb(31, 35, 46);
+  --bg-color-95: color-mix(in hsl, var(--bg-color) 95%, var(--text-color));
+  --bg-color-90: color-mix(in hsl, var(--bg-color) 90%, var(--text-color));
+  --bg-color-80: color-mix(in hsl, var(--bg-color) 80%, var(--text-color));
+  --bg-color-70: color-mix(in hsl, var(--bg-color) 70%, var(--text-color));
+  --bg-color-60: color-mix(in hsl, var(--bg-color) 60%, var(--text-color));
+  --bg-color-50: color-mix(in hsl, var(--bg-color) 50%, var(--text-color));
+  --bg-color-40: color-mix(in hsl, var(--bg-color) 40%, var(--text-color));
+  --bg-color-30: color-mix(in hsl, var(--bg-color) 30%, var(--text-color));
+  --bg-color-20: color-mix(in hsl, var(--bg-color) 20%, var(--text-color));
+  --bg-color-10: color-mix(in hsl, var(--bg-color) 10%, var(--text-color));
+
+  // badge
+  --badge-success-bg: rgba(0, 234, 108, 0.2);
+  --badge-success-color: rgb(204, 255, 221);
+  --badge-warning-bg: #ffcd0033;
+  --badge-warning-color: #fff5cc;
+  --badge-danger-bg: #ff494433;
+  --badge-danger-color: #ffdbda;
+  --badge-info-bg: #219dff33;
+  --badge-info-color: #cceaf7;
+  ////////
+
+  &.light-theme {
+    --text-color: rgb(74, 73, 83);
+    --bg-color: #f2f2f2;
+
+    // badge
+    --badge-success-bg: rgba(0, 183, 85, 0.1);
+    --badge-success-color: rgb(0, 115, 119);
+    --badge-warning-bg: #ffcd0045;
+    --badge-warning-color: #17355f;
+    --badge-danger-bg: #ff494433;
+    --badge-danger-color: #b60000;
+    --badge-info-bg: #219dff33;
+    --badge-info-color: #0041a5;
+    ///////
+  }
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+a.hoverable-link {
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (hover) {
+  a.hoverable-link:hover {
+    opacity: 0.7;
+    translate: 0 -2px;
+  }
+}
