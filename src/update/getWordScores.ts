@@ -1,28 +1,48 @@
-import embeddingsObject from './embeddings.json' with {type: 'json'}
+import type { WordScore } from '../models/models'
 
-export function cosineSimilarity(a: number[], b: number[]): number {
-  const dot = a.reduce((sum, v, i) => sum + v * (b[i] ?? 1), 0)
-  const magA = Math.sqrt(a.reduce((sum, v) => sum + v * v, 0))
-  const magB = Math.sqrt(b.reduce((sum, v) => sum + v * v, 0))
-  return dot / (magA * magB)
+export function cosineSimilarity(a: Float32Array, b: Float32Array): number {
+  let dot = 0
+  let magA = 0
+  let magB = 0
+
+  for (let i = 0; i < a.length; i++) {
+    const x = a[i]
+    const y = b[i]
+    dot += x * y
+    magA += x * x
+    magB += y * y
+  }
+
+  return dot / Math.sqrt(magA * magB)
 }
 
-export type WordScore = {
-  index: number
-  word: string
-  score: number
+function getEmbedding(idx: number, floats: Float32Array, DIM: number) {
+  return floats.subarray(idx * DIM, (idx + 1) * DIM)
 }
 
-export const getWordScores = (inputWord: string): WordScore[] => {
-  const embeddings = embeddingsObject as Record<string, number[]>
-  if (!embeddings[inputWord]) return []
+export const rankSimilarWords = (
+  targetWord: string,
+  index: Record<string, number>,
+  floats: Float32Array,
+  DIM: number
+): WordScore[] => {
+  const targetIndex = index[targetWord]
+  if (targetIndex === undefined) return []
 
-  const inputVector = embeddings[inputWord]
+  const targetVec = getEmbedding(targetIndex, floats, DIM)
 
-  const results = Object.entries(embeddings)
-    .map(([word, vec]) => ({ word, score: cosineSimilarity(inputVector, vec) }))
-    .sort((a, b) => b.score - a.score)
-    .map((wordAndScore, index) => ({ ...wordAndScore, index }))
+  // compute similarity for each word
+  const results = []
 
-  return results
+  for (const [word, idx] of Object.entries(index)) {
+    const vec = getEmbedding(idx, floats, DIM)
+    const sim = cosineSimilarity(targetVec, vec)
+
+    results.push({ word, score: sim })
+  }
+
+  // sort descending
+  results.sort((a, b) => b.score - a.score)
+
+  return results.map((wordAndScore, index) => ({ ...wordAndScore, index }))
 }

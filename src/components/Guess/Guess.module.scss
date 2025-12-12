@@ -22,4 +22,13 @@
     top: 52%;
     translate: 0 -50%;
   }
+
+  &.giveUp::before {
+    content: '😭';
+    position: absolute;
+    font-size: 0.8rem;
+    left: -1rem;
+    top: 52%;
+    translate: 0 -50%;
+  }
 }

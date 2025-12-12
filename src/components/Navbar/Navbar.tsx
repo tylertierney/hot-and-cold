@@ -5,12 +5,13 @@ import styles from './Navbar.module.scss'
 interface Props {
   triggerHint: () => void
   reset: () => void
+  giveUp: () => void
 }
 
-export default function Navbar({ triggerHint, reset }: Props) {
+export default function Navbar({ triggerHint, reset, giveUp }: Props) {
   const options: Option[] = [
     { label: 'Hint', onClick: triggerHint },
-    { label: 'Give up', onClick: () => console.log('nooo') },
+    { label: 'Give up', onClick: giveUp },
     { label: 'Reset', onClick: reset },
   ]
   return (

@@ -1,0 +1,38 @@
+.guesses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 260px;
+  margin-bottom: 10rem;
+
+  .pageControls {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+
+    .pageCounter {
+      display: flex;
+      align-items: center;
+
+      .pageIndexBtn {
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        stroke: var(--text-color);
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: var(--bg-color-90);
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          stroke: var(--bg-color-70);
+        }
+      }
+    }
+  }
+}

@@ -34,6 +34,7 @@ type Props = {
   index: number
   mostRecent?: boolean
   hint?: boolean
+  giveUp?: boolean
 }
 
 export default function Guess({
@@ -41,12 +42,14 @@ export default function Guess({
   index,
   mostRecent = false,
   hint = false,
+  giveUp = false,
 }: Props) {
   return (
     <div
       className={`${styles.guess} 
       ${mostRecent ? styles.mostRecent : ''}
-      ${hint ? styles.hint : ''}`}
+      ${hint ? styles.hint : ''}
+      ${giveUp ? styles.giveUp : ''}`}
     >
       <span className={styles.word}>
         <span>{word}</span>
