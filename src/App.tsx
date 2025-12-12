@@ -10,7 +10,7 @@ import InputForm from './components/InputForm/InputForm'
 import Modal from './components/Modal/Modal'
 import Instructions from './components/Instructions/Instructions'
 import Confetti from './components/Confetti/Confetti'
-import { generateFakeGuesses } from './utils/utils'
+import { getGameOver } from './utils/utils'
 
 const answers = _answers as string[]
 
@@ -23,6 +23,8 @@ function App() {
   const [text, setText] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
 
+  const gameOver = getGameOver(guesses)
+
   useEffect(() => {
     const loadEmbeddings = async () => {
       const DIM = 384
@@ -34,88 +36,50 @@ function App() {
 
       const result = rankSimilarWords(answer, index, new Float32Array(buf), DIM)
       setWordScores(result)
-      setGuesses(generateFakeGuesses(result, 100))
+      // setGuesses(generateFakeGuesses(result, 100))
     }
 
     loadEmbeddings()
   }, [answer])
 
-  const triggerHint = () => {
-    const bestGuessScoreSoFar = guesses.length
-      ? Math.min(...guesses.map(({ index }) => index))
-      : 2048
-
-    const indexOfHint = ~~(bestGuessScoreSoFar / 2)
-    if (indexOfHint <= 0) {
-      return
-    }
-    const hint: GuessType = {
-      ...wordScores[indexOfHint],
-      timestamp: new Date().toISOString(),
-      hint: true,
-      giveUp: false,
-    }
-    setGuesses((prev) => [...prev, hint])
-  }
-
-  const reset = () => {
-    setGuesses([])
-  }
-
-  const newGame = () => {
-    setGuesses([])
-    setAnswer(answers[~~(Math.random() * answers.length)])
-  }
-
-  const giveUp = () => {
-    setText('')
-    setGuesses((prev) => [
-      ...prev,
-      {
-        ...wordScores[0],
-        timestamp: new Date().toISOString(),
-        hint: false,
-        giveUp: true,
-      },
-    ])
-  }
-
-  const getTitle = (guesses: GuessType[], gameOver: boolean): ReactNode => {
+  const getTitle = (guesses: GuessType[]): ReactNode => {
     if (!guesses.length) {
       return 'Can you guess the secret word?'
     }
 
-    if (gameOver) {
+    if (getGameOver(guesses)) {
       const finalGuess = guesses.at(-1) as GuessType
-
-      return (
-        <>
-          You won! The word was{' '}
-          <b
-            style={{
-              color: 'rgb(155, 167, 255)',
-            }}
-          >
-            {finalGuess.word}
-          </b>
-        </>
+      const wordEl = (
+        <b
+          style={{
+            color: 'var(--purple)',
+          }}
+        >
+          {finalGuess.word}
+        </b>
       )
+
+      if (finalGuess.giveUp) {
+        return <>You gave up! The word was {wordEl}</>
+      }
+
+      return <>You won! The word was {wordEl}</>
     }
 
     return `Guesses: ${guesses.length}`
   }
 
-  const gameOver = Boolean(guesses.at(-1)?.index === 0)
-
   return (
     <>
       <Navbar
-        reset={reset}
-        triggerHint={triggerHint}
-        giveUp={giveUp}
-        newGame={newGame}
+        guesses={guesses}
+        setGuesses={setGuesses}
+        wordScores={wordScores}
+        setText={setText}
+        answers={answers}
+        setAnswer={setAnswer}
       ></Navbar>
-      <h1 className={styles.title}>{getTitle(guesses, gameOver)}</h1>
+      <h1 className={styles.title}>{getTitle(guesses)}</h1>
       <InputForm
         disabled={gameOver}
         guesses={guesses}

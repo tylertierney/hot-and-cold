@@ -2,6 +2,7 @@ import _nouns from '../update/nouns.json'
 const nouns = _nouns as string[]
 
 import type { GuessType, WordScore } from '../models/models'
+import type { CSSProperties } from 'react'
 
 export const generateFakeGuesses = (
   wordScores: WordScore[],
@@ -28,4 +29,26 @@ export const getNumberSuffix = (n: number): string => {
   if (onesDigit === 3) return 'rd'
   if (onesDigit >= 4) return 'th'
   return ''
+}
+
+export const getGameOver = (guesses: GuessType[]): boolean => {
+  const latestGuess = guesses.at(-1)
+  if (!latestGuess) return false
+  return latestGuess.index <= 0
+}
+
+export const getScoreColor = (index: number): CSSProperties['color'] => {
+  if (index <= 50) {
+    return 'var(--red)'
+  }
+  if (index <= 100) {
+    return 'var(--orange)'
+  }
+  if (index <= 800) {
+    return 'var(--yellow)'
+  }
+  if (index <= 1500) {
+    return 'var(--faded-yellow)'
+  }
+  return 'var(--blue)'
 }

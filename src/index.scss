@@ -27,12 +27,14 @@ body {
   --badge-info-color: #cceaf7;
   ////////
 
-  --purple: rgb(83, 92, 159);
+  --purple: rgb(124, 139, 255);
   --blue: rgb(191, 228, 255);
   --faded-yellow: color-mix(in hsl, yellow 50%, var(--text-color));
   --yellow: yellow;
-  --orange: orangered;
+  --orange: #ff7644;
   --red: #ff2b2b;
+
+  --dropdown-menu-bg: rgb(26, 29, 37);
 
   &.light-theme {
     --text-color: rgb(74, 73, 83);
@@ -50,11 +52,14 @@ body {
     ///////
     ///
 
+    --purple: rgb(99, 112, 206);
     --blue: rgb(89, 141, 178);
     --faded-yellow: rgb(176, 157, 53);
     --yellow: rgb(242, 159, 0);
     --orange: #ff5400;
     --red: red;
+
+    --dropdown-menu-bg: rgb(235, 235, 235);
   }
 }
 
@@ -70,7 +75,7 @@ body {
   #root {
     display: flex;
     flex-direction: column;
-    min-height: 300vh;
+    min-height: 100vh;
   }
 }
 

@@ -1,11 +1,12 @@
 import type { GuessType, WordScore } from '../../models/models'
-import { getNumberSuffix } from '../../utils/utils'
+import { getNumberSuffix, getScoreColor } from '../../utils/utils'
 import styles from './InputForm.module.scss'
 import {
   useEffect,
   useState,
   type Dispatch,
   type PropsWithChildren,
+  type ReactNode,
   type SetStateAction,
 } from 'react'
 
@@ -69,7 +70,7 @@ export default function InputForm({
   setText,
 }: PropsWithChildren<Props>) {
   const [placeholder, setPlaceholder] = useState(placeholders[0])
-  const [helperText, setHelperText] = useState('')
+  const [helperText, setHelperText] = useState<ReactNode>('')
 
   useEffect(() => {
     let index = 0
@@ -116,8 +117,13 @@ export default function InputForm({
               ({ word }) => word === userInput
             )
             if (hasAlreadyGuessed) {
+              const { word, index } = hasAlreadyGuessed
               setHelperText(
-                `You already guessed “${hasAlreadyGuessed.word}”. (#${hasAlreadyGuessed.index})`
+                <>
+                  You already guessed "{word}" &#40;
+                  <span style={{ color: getScoreColor(index) }}>#{index}</span>
+                  &#41;
+                </>
               )
               setText('')
               return
@@ -135,7 +141,7 @@ export default function InputForm({
               }
               setGuesses((prev) => [...prev, guess])
             } else {
-              setHelperText(`I don't recognize ${text}. Try another word.`)
+              setHelperText(`I don't recognize "${text}". Try another word.`)
             }
             setText('')
           }}

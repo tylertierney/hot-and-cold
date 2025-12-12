@@ -1,21 +1,5 @@
-import type { CSSProperties } from 'react'
+import { getScoreColor } from '../../utils/utils'
 import styles from './Guess.module.scss'
-
-const getScoreColor = (index: number): CSSProperties['color'] => {
-  if (index <= 50) {
-    return 'var(--red)'
-  }
-  if (index <= 100) {
-    return 'var(--orange)'
-  }
-  if (index <= 800) {
-    return 'var(--yellow)'
-  }
-  if (index <= 1500) {
-    return 'var(--faded-yellow)'
-  }
-  return 'var(--blue)'
-}
 
 const getScoreIcon = (index: number): '🔥' | '☀️' | '' => {
   if (index <= 100) {

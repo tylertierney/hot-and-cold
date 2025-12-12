@@ -33,8 +33,6 @@ export default function DropdownList({
     (_, i) => optionRefs.current[i] || createRef<HTMLButtonElement>()
   )
 
-  // const firstItemRef = useRef<HTMLButtonElement | null>(null)
-
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, option: Option) => {
     option.onClick?.(e)
     setIsOpen(false)
