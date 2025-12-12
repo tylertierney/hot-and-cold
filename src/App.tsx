@@ -28,7 +28,7 @@ function App() {
       const DIM = 384
 
       const [index, buf] = await Promise.all([
-        fetch('/index.json').then((r) => r.json()),
+        fetch('/embeddings.json').then((r) => r.json()),
         fetch('/embeddings.bin').then((r) => r.arrayBuffer()),
       ])
 

@@ -72,11 +72,11 @@ async function generateEmbeddings() {
 
   // Write index file
   fs.writeFileSync(
-    path.join(__dirname, "../../public/index.json"),
+    path.join(__dirname, "../../public/embeddings.json"),
     JSON.stringify(index)
   );
 
-  console.log("Done! Created embeddings.bin and index.json");
+  console.log("Done! Created embeddings.bin and embeddings.json");
 }
 
 generateEmbeddings().catch(console.error);
