@@ -51,8 +51,7 @@ const Modal: FC<PropsWithChildren<Props>> = ({ isOpen, onClose, children }) => {
     >
       <div
         style={{
-          // background: 'white',
-          background: 'rgb(0, 0, 0, 0.7)',
+          background: 'color-mix(in hsl, var(--bg-color) 85%, transparent)',
           backdropFilter: 'blur(14px)',
           padding: '1.5rem',
           borderRadius: '10px',
