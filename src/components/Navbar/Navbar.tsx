@@ -83,7 +83,7 @@ export default function Navbar({
     <nav className={styles.nav}>
       <img
         className={styles.logo}
-        src='/public/hot-and-cold.svg'
+        src='/hot-and-cold.svg'
         width='42px'
         height='42px'
       />
