@@ -3,18 +3,18 @@ import styles from './Guess.module.scss'
 
 const getScoreColor = (index: number): CSSProperties['color'] => {
   if (index <= 50) {
-    return 'red'
+    return 'var(--red)'
   }
   if (index <= 100) {
-    return 'orangered'
+    return 'var(--orange)'
   }
   if (index <= 800) {
-    return 'yellow'
+    return 'var(--yellow)'
   }
   if (index <= 1500) {
-    return 'color-mix(in hsl, yellow 50%, var(--text-color))'
+    return 'var(--faded-yellow)'
   }
-  return 'var(--text-color)'
+  return 'var(--blue)'
 }
 
 const getScoreIcon = (index: number): '🔥' | '☀️' | '' => {
@@ -59,7 +59,7 @@ export default function Guess({
         className={`${styles.score}`}
         style={{ color: getScoreColor(index) }}
       >
-        #{index}
+        #{index.toLocaleString('en-us')}
       </span>
     </div>
   )

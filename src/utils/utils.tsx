@@ -4,8 +4,8 @@ const nouns = _nouns as string[]
 import type { GuessType, WordScore } from '../models/models'
 
 export const generateFakeGuesses = (
-  length = 25,
-  wordScores: WordScore[]
+  wordScores: WordScore[],
+  length = 25
 ): GuessType[] => {
   return Array(length)
     .fill(null)
@@ -14,8 +14,18 @@ export const generateFakeGuesses = (
     .filter(Boolean)
     .map((wordScore) => ({
       ...wordScore,
-      timestamp: '',
+      timestamp: new Date().toISOString(),
       hint: false,
       giveUp: false,
     }))
+}
+
+export const getNumberSuffix = (n: number): string => {
+  const onesDigit = n % 10
+  if (onesDigit === 0) return 'th'
+  if (onesDigit === 1) return 'st'
+  if (onesDigit === 2) return 'nd'
+  if (onesDigit === 3) return 'rd'
+  if (onesDigit >= 4) return 'th'
+  return ''
 }

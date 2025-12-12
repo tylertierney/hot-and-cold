@@ -1,4 +1,3 @@
-import styles from './Dropdown.module.scss'
 import {
   useState,
   useRef,
@@ -11,6 +10,7 @@ import {
   type PropsWithChildren,
 } from 'react'
 import DropdownList from './DropdownList/DropdownList'
+import Button from '../Button/Button'
 
 export interface Option {
   label: ReactNode
@@ -131,21 +131,15 @@ export default function Dropdown({
     return () => window.removeEventListener('resize', resizeListener)
   }, [resizeListener])
 
-  // const handleSelect = (e: MouseEvent<HTMLLIElement>, option: Option) => {
-  //   option.onClick?.(e)
-  //   setIsOpen(false)
-  // }
-
   return (
     <>
-      <button
+      <Button
         style={style}
         onClick={() => setIsOpen((prev) => !prev)}
         ref={triggerRef}
-        className={styles.triggerBtn}
       >
         {children}
-      </button>
+      </Button>
       {isOpen && (
         <DropdownList
           options={options}

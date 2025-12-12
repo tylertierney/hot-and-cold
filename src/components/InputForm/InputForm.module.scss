@@ -1,28 +1,96 @@
 .inputForm {
   display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin: 0 0 3rem 0;
+  flex-direction: column;
+  margin: 0 0 2.5rem 0;
+  gap: 1rem;
+  align-self: center;
 
-  .input,
-  .submitBtn {
-    background-color: transparent;
-    border: 2px solid var(--text-color);
-    border-radius: 40px;
-    color: var(--text-color);
-    font-size: 1.1rem;
-  }
+  .inputAndBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
 
-  .input {
-    padding: 0.5rem 0 0.5rem 1rem;
-  }
-
-  .submitBtn {
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-
-    &:hover {
-      background-color: var(--bg-color-90);
+    .input {
+      background-color: transparent;
+      border: 2px solid var(--text-color);
+      border-radius: 40px;
+      color: var(--text-color);
+      font-size: 1.1rem;
     }
+
+    .submitBtn {
+      border-radius: 40px;
+      color: var(--text-color);
+      font-size: 1.1rem;
+    }
+
+    .input {
+      padding: 0.5rem 0 0.5rem 1rem;
+    }
+
+    .submitBtn {
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85px;
+      height: 42px;
+      border: none;
+      overflow: hidden;
+
+      @media (hover: hover) {
+        &:hover {
+          .label {
+            background-color: var(--bg-color-90);
+          }
+        }
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      .gradient {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: 100px;
+        height: 100px;
+        background-color: var(--text-color);
+        z-index: 0;
+        animation: 2s linear infinite spin;
+      }
+
+      .label {
+        background-color: var(--bg-color);
+        height: 38px;
+        width: 81px;
+        border-radius: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+      }
+    }
+  }
+
+  .helperText {
+    padding-left: 0.75rem;
+    text-align: left;
+    max-width: 50ch;
+  }
+}
+
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
   }
 }

@@ -1,7 +1,7 @@
 export const moonIcon = (
   <svg
-    width='1.5rem'
-    height='1.5rem'
+    width='1.4rem'
+    height='1.4rem'
     stroke='none'
     viewBox='0 0 24 24'
     fill='inherit'
