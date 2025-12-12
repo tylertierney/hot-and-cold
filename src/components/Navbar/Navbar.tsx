@@ -34,7 +34,7 @@ export default function Navbar({
   const triggerHint = () => {
     const bestGuessScoreSoFar = guesses.length
       ? Math.min(...guesses.map(({ index }) => index))
-      : 2048
+      : 4096
 
     const indexOfHint = ~~(bestGuessScoreSoFar / 2)
     if (indexOfHint <= 0) {

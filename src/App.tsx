@@ -81,6 +81,18 @@ function App() {
         setModalOpen={setModalOpen}
       ></Navbar>
       <h1 className={styles.title}>{getTitle(guesses)}</h1>
+      {Boolean(gameOver) && (
+        <button
+          className={styles.howToPlayBtn}
+          style={{ margin: '1rem 0' }}
+          onClick={() => {
+            setGuesses([])
+            setAnswer(answers[~~(Math.random() * answers.length)])
+          }}
+        >
+          Play Again
+        </button>
+      )}
       <InputForm
         disabled={gameOver}
         guesses={guesses}
@@ -100,11 +112,11 @@ function App() {
           >
             How to Play
           </button>
-          <Modal onClose={() => setModalOpen(false)} isOpen={modalOpen}>
-            <Instructions />
-          </Modal>
         </>
       )}
+      <Modal onClose={() => setModalOpen(false)} isOpen={modalOpen}>
+        <Instructions />
+      </Modal>
       <Confetti guesses={guesses} />
       <Outlet></Outlet>
     </>

@@ -1,3 +1,4 @@
+import { getScoreColor } from '../../utils/utils'
 import styles from './Instructions.module.scss'
 
 export default function Instructions() {
@@ -15,13 +16,16 @@ export default function Instructions() {
           Secret word: <b>car</b>
         </li>
         <li className={styles.li}>
-          truck → <b>#12</b> &#40;very close&#41;
+          truck → <b style={{ color: getScoreColor(12) }}>#12</b> &#40;very
+          close&#41;
         </li>
         <li className={styles.li}>
-          tire → <b>#344</b> &#40;close-ish&#41;
+          tire → <b style={{ color: getScoreColor(344) }}>#344</b>{' '}
+          &#40;close-ish&#41;
         </li>
         <li className={styles.li}>
-          banana → <b>#17,946</b> &#40;far&#41;
+          banana → <b style={{ color: getScoreColor(17_946) }}>#17,946</b>{' '}
+          &#40;far&#41;
         </li>
       </ul>
     </div>
