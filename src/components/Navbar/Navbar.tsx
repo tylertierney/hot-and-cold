@@ -8,6 +8,7 @@ import Button from '../Button/Button'
 import Dropdown, { type Option } from '../Dropdown/Dropdown'
 import styles from './Navbar.module.scss'
 import { getGameOver } from '../../utils/utils'
+import { questionMarkIcon } from '../../svg/questionMark'
 
 interface Props {
   guesses: GuessType[]
@@ -16,6 +17,7 @@ interface Props {
   setText: Dispatch<SetStateAction<string>>
   answers: string[]
   setAnswer: Dispatch<SetStateAction<string>>
+  setModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export default function Navbar({
@@ -25,6 +27,7 @@ export default function Navbar({
   setText,
   answers = [],
   setAnswer,
+  setModalOpen,
 }: Props) {
   const [lightTheme, setLightTheme] = useTheme()
 
@@ -84,6 +87,12 @@ export default function Navbar({
         width='42px'
         height='42px'
       />
+      <Button
+        style={{ fill: 'var(--text-color)' }}
+        onClick={() => setModalOpen((prev) => !prev)}
+      >
+        {questionMarkIcon}
+      </Button>
       <Button
         style={{ fill: 'var(--text-color)' }}
         onClick={() => setLightTheme((prev) => !prev)}

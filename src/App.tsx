@@ -78,6 +78,7 @@ function App() {
         setText={setText}
         answers={answers}
         setAnswer={setAnswer}
+        setModalOpen={setModalOpen}
       ></Navbar>
       <h1 className={styles.title}>{getTitle(guesses)}</h1>
       <InputForm
@@ -104,7 +105,7 @@ function App() {
           </Modal>
         </>
       )}
-      <Confetti gameOver={gameOver} />
+      <Confetti guesses={guesses} />
       <Outlet></Outlet>
     </>
   )
