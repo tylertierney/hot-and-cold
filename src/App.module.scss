@@ -1,6 +1,7 @@
 .title {
   text-align: center;
   margin: 4rem 2rem 1rem 2rem;
+  line-height: 1.2;
 }
 
 .howToPlayBtn {
@@ -12,6 +13,11 @@
   color: white;
   border: none;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
   @media (hover: hover) {
     &:hover {

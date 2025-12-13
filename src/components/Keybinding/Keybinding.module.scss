@@ -1,0 +1,14 @@
+.keybinding {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: monospace;
+  font-size: x-small;
+  padding: 6px;
+  border-radius: 50px;
+  opacity: 0.4;
+  user-select: none;
+  pointer-events: none;
+  border: none;
+}

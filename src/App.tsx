@@ -11,6 +11,7 @@ import Modal from './components/Modal/Modal'
 import Instructions from './components/Instructions/Instructions'
 import Confetti from './components/Confetti/Confetti'
 import { getGameOver } from './utils/utils'
+import Keybinding from './components/Keybinding/Keybinding'
 
 const answers = _answers as string[]
 
@@ -24,6 +25,7 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false)
 
   const gameOver = getGameOver(guesses)
+  const isDesktop = navigator.maxTouchPoints === 0
 
   useEffect(() => {
     const loadEmbeddings = async () => {
@@ -36,7 +38,6 @@ function App() {
 
       const result = rankSimilarWords(answer, index, new Float32Array(buf), DIM)
       setWordScores(result)
-      // setGuesses(generateFakeGuesses(result, 100))
     }
 
     loadEmbeddings()
@@ -79,6 +80,7 @@ function App() {
         answers={answers}
         setAnswer={setAnswer}
         setModalOpen={setModalOpen}
+        isDesktop={isDesktop}
       ></Navbar>
       <h1 className={styles.title}>{getTitle(guesses)}</h1>
       {Boolean(gameOver) && (
@@ -90,7 +92,20 @@ function App() {
             setAnswer(answers[~~(Math.random() * answers.length)])
           }}
         >
-          Play Again
+          <span>Play Again</span>
+          {isDesktop && (
+            <Keybinding
+              style={{
+                top: 'unset',
+                bottom: '-5px',
+                right: '50%',
+                translate: '50% 0',
+                fontSize: '9px',
+              }}
+            >
+              [space]
+            </Keybinding>
+          )}
         </button>
       )}
       <InputForm
@@ -101,6 +116,7 @@ function App() {
         gameOver={gameOver}
         text={text}
         setText={setText}
+        isDesktop={isDesktop}
       ></InputForm>
       {guesses.length ? (
         <GuessList guesses={guesses} />

@@ -1,8 +1,10 @@
 import type { GuessType, WordScore } from '../../models/models'
 import { getNumberSuffix, getScoreColor } from '../../utils/utils'
+import Keybinding from '../Keybinding/Keybinding'
 import styles from './InputForm.module.scss'
 import {
   useEffect,
+  useRef,
   useState,
   type Dispatch,
   type PropsWithChildren,
@@ -58,6 +60,7 @@ interface Props {
   gameOver: boolean
   text: string
   setText: Dispatch<SetStateAction<string>>
+  isDesktop: boolean
 }
 
 export default function InputForm({
@@ -68,9 +71,11 @@ export default function InputForm({
   gameOver = false,
   text = '',
   setText,
+  isDesktop = true,
 }: PropsWithChildren<Props>) {
   const [placeholder, setPlaceholder] = useState(placeholders[0])
   const [helperText, setHelperText] = useState<ReactNode>('')
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     let index = 0
@@ -86,27 +91,46 @@ export default function InputForm({
     setHelperText(getHelperText(guesses, gameOver))
   }, [guesses, gameOver])
 
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        const input = inputRef.current
+        if (!input) return
+        input.focus()
+        e.preventDefault()
+      }
+    }
+
+    window.addEventListener('keydown', listener)
+
+    return () => window.removeEventListener('keydown', listener)
+  }, [])
+
   return (
     <form className={styles.inputForm} onSubmit={(e) => e.preventDefault()}>
       <div className={styles.inputAndBtn}>
-        <input
-          className={styles.input}
-          type='text'
-          onChange={(e) => {
-            const word = e.target.value
-              .toLowerCase()
-              .trim()
-              .split('')
-              .filter((char) => alphabet.includes(char))
-              .join('')
+        <div className={styles.inputWrapper}>
+          <input
+            ref={inputRef}
+            className={styles.input}
+            type='text'
+            onChange={(e) => {
+              const word = e.target.value
+                .toLowerCase()
+                .trim()
+                .split('')
+                .filter((char) => alphabet.includes(char))
+                .join('')
 
-            setText(word)
-          }}
-          value={text}
-          placeholder={`Try ${placeholder}`}
-          enterKeyHint='go'
-          disabled={disabled}
-        />
+              setText(word)
+            }}
+            value={text}
+            placeholder={`Try ${placeholder}`}
+            enterKeyHint='go'
+            disabled={disabled}
+          />
+          {isDesktop && !text && <Keybinding>Ctrl + K</Keybinding>}
+        </div>
         <button
           className={styles.submitBtn}
           onClick={() => {
