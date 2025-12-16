@@ -24,4 +24,14 @@
       background-color: rgba(83, 92, 159, 0.75);
     }
   }
+
+  .playAgainKeybinding {
+    top: unset;
+    bottom: unset;
+    right: unset;
+    translate: unset;
+    position: relative;
+    margin-top: 0.25rem;
+    font-size: small;
+  }
 }

@@ -1,16 +1,19 @@
 import styles from './Keybinding.module.scss'
-import type { CSSProperties, PropsWithChildren } from 'react'
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 
-interface Props {
-  style?: CSSProperties
-}
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
 
 export default function Keybinding({
   children,
+  className = '',
   ...rest
 }: PropsWithChildren<Props>) {
   return (
-    <span className={styles.keybinding} {...rest}>
+    <span className={`${styles.keybinding} ${className}`} {...rest}>
       {children}
     </span>
   )

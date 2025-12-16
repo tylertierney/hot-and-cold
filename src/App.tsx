@@ -86,7 +86,10 @@ function App() {
       {Boolean(gameOver) && (
         <button
           className={styles.howToPlayBtn}
-          style={{ margin: '1rem 0' }}
+          style={{
+            margin: '1rem 0',
+            padding: isDesktop ? '0.5rem 2rem 0.5rem 2rem' : '1rem 2rem',
+          }}
           onClick={() => {
             setGuesses([])
             setAnswer(answers[~~(Math.random() * answers.length)])
@@ -94,15 +97,7 @@ function App() {
         >
           <span>Play Again</span>
           {isDesktop && (
-            <Keybinding
-              style={{
-                top: 'unset',
-                bottom: '-5px',
-                right: '50%',
-                translate: '50% 0',
-                fontSize: '9px',
-              }}
-            >
+            <Keybinding className={styles.playAgainKeybinding}>
               [space]
             </Keybinding>
           )}

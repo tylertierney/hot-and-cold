@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { getScoreColor } from '../../utils/utils'
 import styles from './Guess.module.scss'
 
@@ -19,6 +20,7 @@ type Props = {
   mostRecent?: boolean
   hint?: boolean
   giveUp?: boolean
+  style?: CSSProperties
 }
 
 export default function Guess({
@@ -27,6 +29,7 @@ export default function Guess({
   mostRecent = false,
   hint = false,
   giveUp = false,
+  style = {},
 }: Props) {
   return (
     <div
@@ -34,6 +37,7 @@ export default function Guess({
       ${mostRecent ? styles.mostRecent : ''}
       ${hint ? styles.hint : ''}
       ${giveUp ? styles.giveUp : ''}`}
+      style={style}
     >
       <span className={styles.word}>
         <span>{word}</span>
